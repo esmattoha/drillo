@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@nuxt/ui";
 
 :root {
   --color-bg: oklch(87.2% 0.01 258.338);

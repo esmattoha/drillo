@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     auth: {
       secret: process.env.AUTH_SECRET,
       origin: process.env.AUTH_ORIGIN,
+      baseURL: process.env.AUTH_BASE_URL,
     },
   },
 
@@ -19,9 +20,9 @@ export default defineNuxtConfig({
 
   // @ts-ignore
   auth: {
-    baseURL: process.env.AUTH_ORIGIN,
-    enableGlobalAppMiddleware: true,
-    basePath: "/api/auth",
+    isEnabled: true,
+    baseURL: process.env.AUTH_BASE_URL,
+    originEnvKey: process.env.AUTH_ORIGIN,
     provider: {
       type: "authjs",
     },

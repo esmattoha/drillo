@@ -5,6 +5,10 @@ import { User } from "~/server/models/user.model";
 export default NuxtAuthHandler({
   secret: useRuntimeConfig().auth.secret,
 
+  pages: {
+    signIn: "/auth/signin",
+  },
+
   providers: [
     // @ts-expect-error
     CredentialsProvider.default({
@@ -28,4 +32,32 @@ export default NuxtAuthHandler({
       },
     }),
   ],
+
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token = {
+          ...token,
+          ...user,
+        };
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      const refreshedUser = await User.findById(token?._id);
+
+      session.user = {
+        ...session.user,
+        ...refreshedUser,
+        ...token,
+      };
+
+      return session;
+    },
+  },
 });
