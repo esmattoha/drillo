@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: oklch(87.2% 0.01 258.338);
+  --color-bg-dark: oklch(27.7% 0.046 192.524);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-dark);
+  }
+}
