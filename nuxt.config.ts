@@ -8,5 +8,22 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  modules: ["@nuxt/ui"],
+  runtimeConfig: {
+    auth: {
+      secret: process.env.AUTH_SECRET,
+      origin: process.env.AUTH_ORIGIN,
+    },
+  },
+
+  modules: ["@nuxt/ui", "@sidebase/nuxt-auth"],
+
+  // @ts-ignore
+  auth: {
+    baseURL: process.env.AUTH_ORIGIN,
+    enableGlobalAppMiddleware: true,
+    basePath: "/api/auth",
+    provider: {
+      type: "authjs",
+    },
+  },
 });
