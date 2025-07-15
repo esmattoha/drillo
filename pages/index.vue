@@ -1,11 +1,9 @@
-<template>
-  <div>Dashboard</div>
-</template>
-
 <script lang="ts" setup>
 definePageMeta({
   middleware: "sidebase-auth",
 });
 </script>
 
-<style></style>
+<template>
+  <div>Dashboard</div>
+</template>

@@ -21,10 +21,15 @@ export default defineNuxtConfig({
   // @ts-ignore
   auth: {
     isEnabled: true,
+    disableServerSideAuth: false,
     baseURL: process.env.AUTH_BASE_URL,
     originEnvKey: process.env.AUTH_ORIGIN,
-    provider: {
-      type: "authjs",
-    },
+    // provider: {
+    //   type: "authjs",
+    // },
+    // sessionRefresh: {
+    //   enablePeriodically: true,
+    //   enableOnWindowFocus: true,
+    // },
   },
 });

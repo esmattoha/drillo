@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@nuxt/ui": "^3.2.0",
-    "@sidebase/nuxt-auth": "^1.0.0",
+    "@sidebase/nuxt-auth": "https://pkg.pr.new/@sidebase/nuxt-auth@992",
     "mongoose": "^8.16.3",
     "zod": "^4.0.5"
   }

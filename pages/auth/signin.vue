@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import singinSchema from "./../../schemas/signin.schema";
+import singinSchema from "../schemas/signin.schema";
 import { z } from "zod";
 import type { FormSubmitEvent } from "@nuxt/ui";
 
