@@ -6,7 +6,7 @@ export default NuxtAuthHandler({
   secret: useRuntimeConfig().auth.secret,
 
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/signin",
   },
 
   providers: [

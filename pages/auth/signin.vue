@@ -14,7 +14,7 @@
 
         <!-- Form  -->
         <UCard class="mt-4">
-          <UForm :state="state" :schema="singinSchema" @submit="handleSignin">
+          <UForm :state="state" :schema="signinSchema" @submit="handleSignin">
             <UFormField class="mb-6" label="Email" name="email">
               <UInput type="email" v-model="state.email" class="w-full" />
             </UFormField>
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import singinSchema from "../schemas/signin.schema";
+import signinSchema from "~/schemas/signin.schema";
 import { z } from "zod";
 import type { FormSubmitEvent } from "@nuxt/ui";
 
@@ -46,9 +46,10 @@ const state = reactive({
 const { signIn } = useAuth();
 
 async function handleSignin(
-  event: FormSubmitEvent<z.output<typeof singinSchema>>
+  event: FormSubmitEvent<z.output<typeof signinSchema>>
 ) {
   try {
+    isLoading.value = true;
     await signIn("credentials", {
       email: event.data.email,
       password: event.data.password,
@@ -58,7 +59,7 @@ async function handleSignin(
     useRouter().push("/");
   } catch (error) {
   } finally {
-    isLoading.value = true;
+    isLoading.value = false;
   }
 }
 </script>

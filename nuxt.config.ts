@@ -18,14 +18,14 @@ export default defineNuxtConfig({
 
   modules: ["@nuxt/ui", "@sidebase/nuxt-auth"],
 
-  // @ts-ignore
+  // @ts-nocheck
   auth: {
     isEnabled: true,
     disableServerSideAuth: false,
-    baseURL: process.env.AUTH_BASE_URL,
-    originEnvKey: process.env.AUTH_ORIGIN,
+    baseURL: "/api/auth",
+    origin: process.env.AUTH_ORIGIN ?? "http://localhost:3000",
     // provider: {
-    //   type: "authjs",
+    //   type: "local",
     // },
     // sessionRefresh: {
     //   enablePeriodically: true,
