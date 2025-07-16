@@ -1,13 +1,65 @@
 <template>
-  <div>
-    
+  <div class="grid lg:grid-cols-2 h-screen">
+    <div
+      class="left place-self-center w-full px-8 md:px-16 lg:px-24 xl:px-36 2xl:px-52"
+    >
+      <div class="header text-center mb-6">
+        <div class="flex justify-center">
+          <Logo />
+        </div>
+
+        <h1 class="font-bold text-center text-xl text-white mt-4">
+          Create your account
+        </h1>
+
+        <!-- Form  -->
+        <UCard class="mt-4">
+          <UForm :state="state" :schema="signinSchema" @submit="handleSignun">
+            <UFormField class="mb-6" label="Name" name="name">
+              <UInput type="text" v-model="state.name" class="w-full" />
+            </UFormField>
+
+            <UFormField class="mb-6" label="Email" name="email">
+              <UInput type="email" v-model="state.email" class="w-full" />
+            </UFormField>
+
+            <UFormField class="mb-6" label="Password" name="password">
+              <UInput type="password" v-model="state.password" class="w-full" />
+            </UFormField>
+
+            <UButton :loading="isLoading" type="submit"> Signup </UButton>
+          </UForm>
+        </UCard>
+      </div>
+    </div>
+    <div class="right hidden lg:block"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-
+const state = reactive({
+  name: "",
+  email: "",
+  password: "",
+});
 </script>
 
-<style>
+<style scoped>
+.right {
+  background: linear-gradient(-45deg, #22c55e, #10b981, #84cc16, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
 
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 </style>

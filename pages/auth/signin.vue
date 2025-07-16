@@ -33,35 +33,10 @@
 </template>
 
 <script lang="ts" setup>
-import signinSchema from "~/schemas/signin.schema";
-import { z } from "zod";
-import type { FormSubmitEvent } from "@nuxt/ui";
-
-const isLoading = ref(false);
 const state = reactive({
-  email: undefined,
-  password: undefined,
+  email: "",
+  password: "",
 });
-
-const { signIn } = useAuth();
-
-async function handleSignin(
-  event: FormSubmitEvent<z.output<typeof signinSchema>>
-) {
-  try {
-    isLoading.value = true;
-    await signIn("credentials", {
-      email: event.data.email,
-      password: event.data.password,
-      redirect: false,
-    });
-
-    useRouter().push("/");
-  } catch (error) {
-  } finally {
-    isLoading.value = false;
-  }
-}
 </script>
 
 <style scoped>

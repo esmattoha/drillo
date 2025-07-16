@@ -16,20 +16,5 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxt/ui", "@sidebase/nuxt-auth"],
-
-  // @ts-nocheck
-  auth: {
-    isEnabled: true,
-    disableServerSideAuth: false,
-    baseURL: "/api/auth",
-    origin: process.env.AUTH_ORIGIN ?? "http://localhost:3000",
-    // provider: {
-    //   type: "local",
-    // },
-    // sessionRefresh: {
-    //   enablePeriodically: true,
-    //   enableOnWindowFocus: true,
-    // },
-  },
+  modules: ["@nuxt/ui"],
 });
