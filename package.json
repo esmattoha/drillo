@@ -12,6 +12,7 @@
   "dependencies": {
     "@vueup/vue-quill": "^1.2.0",
     "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
     "next-auth": "4.21.1",
     "nuxt": "^3.17.6",
     "stripe": "^18.3.0",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@nuxt/ui": "^3.2.0",
     "@sidebase/nuxt-auth": "https://pkg.pr.new/@sidebase/nuxt-auth@992",
+    "@types/jsonwebtoken": "^9.0.10",
     "mongoose": "^8.16.3",
     "zod": "^4.0.5"
   }

@@ -1,20 +1,22 @@
 import signupSchema from "~/schemas/signup.schema";
-import { User } from "~/server/models/user.model";
+import { User } from "./../../models/user.model";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
+  const data = signupSchema.parse(body);
 
-  const validatedBody = signupSchema.safeParse(body);
-
-  if (!validatedBody.success) {
+  const exists = await User.findOne({ email: data.email });
+  if (exists) {
     throw createError({
       statusCode: 400,
-      statusMessage: "Validation error",
-      data: validatedBody.error.flatten(),
+      statusMessage: "User already exists",
     });
   }
 
-  const userDetails = await User.create(validatedBody.data);
+  const user = await User.create(data);
 
-  return { ...userDetails, password: undefined };
+  return {
+    message: "User created",
+    user: { id: user._id, email: user.email, password: user?.password },
+  };
 });

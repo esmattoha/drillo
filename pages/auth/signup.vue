@@ -14,7 +14,7 @@
 
         <!-- Form  -->
         <UCard class="mt-4">
-          <UForm :state="state" :schema="signinSchema" @submit="handleSignun">
+          <UForm :state="state" :schema="signinSchema" @submit="handleSignup">
             <UFormField class="mb-6" label="Name" name="name">
               <UInput type="text" v-model="state.name" class="w-full" />
             </UFormField>
@@ -27,7 +27,19 @@
               <UInput type="password" v-model="state.password" class="w-full" />
             </UFormField>
 
-            <UButton :loading="isLoading" type="submit"> Signup </UButton>
+            <UFormField
+              class="mb-6"
+              label="Password Confirm"
+              name="password-confirm"
+            >
+              <UInput
+                type="password"
+                v-model="state.passwordConfirm"
+                class="w-full"
+              />
+            </UFormField>
+
+            <UButton :loading="loading" type="submit"> Signup </UButton>
           </UForm>
         </UCard>
       </div>
@@ -37,11 +49,25 @@
 </template>
 
 <script lang="ts" setup>
+import { z } from "zod";
+import signupSchema from "~/schemas/signup.schema";
+import type { FormSubmitEvent } from "@nuxt/ui";
+import { useAuth } from "~/composables/useAuth";
+
 const state = reactive({
   name: "",
   email: "",
   password: "",
+  passwordConfirm: "",
 });
+const { signup, loading } = useAuth();
+
+async function handleSignup(
+  event: FormSubmitEvent<z.infer<typeof signupSchema>>
+) {
+  await signup(event.data);
+  await navigateTo("/");
+}
 </script>
 
 <style scoped>

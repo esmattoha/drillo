@@ -23,7 +23,7 @@
               <UInput type="password" v-model="state.password" class="w-full" />
             </UFormField>
 
-            <UButton :loading="isLoading" type="submit"> Signin </UButton>
+            <UButton :loading="loading" type="submit"> Signin </UButton>
           </UForm>
         </UCard>
       </div>
@@ -33,10 +33,20 @@
 </template>
 
 <script lang="ts" setup>
-const state = reactive({
-  email: "",
-  password: "",
-});
+import { z } from "zod";
+import signinSchema from "~/schemas/signin.schema";
+import type { FormSubmitEvent } from "@nuxt/ui";
+import { useAuth } from "~/composables/useAuth";
+
+const state = reactive({ email: "", password: "" });
+const { signin, loading } = useAuth();
+
+async function handleSignin(
+  event: FormSubmitEvent<z.infer<typeof signinSchema>>
+) {
+  await signin(event.data);
+  await navigateTo("/");
+}
 </script>
 
 <style scoped>
