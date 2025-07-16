@@ -32,8 +32,12 @@ export const useAuth = () => {
   const signin = async (payload: { email: string; password: string }) => {
     loading.value = true;
     try {
-      await $fetch("/api/auth/signin", { method: "POST", body: payload });
-      return await fetchSession();
+      const res = await $fetch("/api/auth/signin", {
+        method: "POST",
+        body: payload,
+      });
+      localStorage.setItem("auth_token", res.token);
+      user.value = res.user;
     } finally {
       loading.value = false;
     }

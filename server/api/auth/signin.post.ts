@@ -7,11 +7,12 @@ export default defineEventHandler(async (event) => {
   const data = signinSchema.parse(body);
 
   const user = await User.findOne({ email: data.email });
-  if (!user || !user?._id)
+  if (!user || !user?._id) {
     throw createError({
       statusCode: 401,
       statusMessage: "Invalid credentials",
     });
+  }
 
   const isMatch = await user.comparePassword(data?.password);
   if (!isMatch)
@@ -22,11 +23,5 @@ export default defineEventHandler(async (event) => {
 
   const token = generateToken({ id: user._id.toString(), email: user.email });
 
-  setCookie(event, "session", token, {
-    httpOnly: true,
-    path: "/",
-    maxAge: 60 * 60 * 24, // 1 day
-  });
-
-  return { message: "Login successful" };
+  return { token, user: { id: user._id, email: user.email, name: user.name } };
 });

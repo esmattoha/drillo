@@ -1,58 +1,37 @@
 <template>
-  <div class="grid lg:grid-cols-2 h-screen">
-    <div
-      class="left place-self-center w-full px-8 md:px-16 lg:px-24 xl:px-36 2xl:px-52"
-    >
-      <div class="header text-center mb-6">
-        <div class="flex justify-center">
-          <Logo />
-        </div>
+  <WrapperAuth title="Create you account">
+    <UForm :state="state" :schema="signupSchema" @submit="handleSignup">
+      <UFormField class="mb-6" label="Name" name="name">
+        <UInput type="text" v-model="state.name" class="w-full" />
+      </UFormField>
 
-        <h1 class="font-bold text-center text-xl text-white mt-4">
-          Create your account
-        </h1>
+      <UFormField class="mb-6" label="Email" name="email">
+        <UInput type="email" v-model="state.email" class="w-full" />
+      </UFormField>
 
-        <!-- Form  -->
-        <UCard class="mt-4">
-          <UForm :state="state" :schema="signinSchema" @submit="handleSignup">
-            <UFormField class="mb-6" label="Name" name="name">
-              <UInput type="text" v-model="state.name" class="w-full" />
-            </UFormField>
+      <UFormField class="mb-6" label="Password" name="password">
+        <UInput type="password" v-model="state.password" class="w-full" />
+      </UFormField>
 
-            <UFormField class="mb-6" label="Email" name="email">
-              <UInput type="email" v-model="state.email" class="w-full" />
-            </UFormField>
+      <UFormField class="mb-6" label="Password Confirm" name="password-confirm">
+        <UInput
+          type="password"
+          v-model="state.passwordConfirm"
+          class="w-full"
+        />
+      </UFormField>
 
-            <UFormField class="mb-6" label="Password" name="password">
-              <UInput type="password" v-model="state.password" class="w-full" />
-            </UFormField>
-
-            <UFormField
-              class="mb-6"
-              label="Password Confirm"
-              name="password-confirm"
-            >
-              <UInput
-                type="password"
-                v-model="state.passwordConfirm"
-                class="w-full"
-              />
-            </UFormField>
-
-            <UButton :loading="loading" type="submit"> Signup </UButton>
-          </UForm>
-        </UCard>
-      </div>
-    </div>
-    <div class="right hidden lg:block"></div>
-  </div>
+      <UButton :loading="loading" type="submit"> Signup </UButton>
+    </UForm>
+  </WrapperAuth>
 </template>
 
 <script lang="ts" setup>
-import { z } from "zod";
-import signupSchema from "~/schemas/signup.schema";
+import { WrapperAuth } from "#components";
 import type { FormSubmitEvent } from "@nuxt/ui";
+import { z } from "zod";
 import { useAuth } from "~/composables/useAuth";
+import signupSchema from "~/schemas/signup.schema";
 
 const state = reactive({
   name: "",
