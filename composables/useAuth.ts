@@ -6,7 +6,13 @@ export const useAuth = () => {
   const fetchSession = async () => {
     try {
       loading.value = true;
-      const session = await $fetch("/api/auth/session");
+      const header = {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("auth_token")}`,
+        },
+      };
+      console.log({ header });
+      const session = await $fetch("/api/auth/session", header);
       user.value = session;
       return session;
     } catch {
@@ -49,7 +55,7 @@ export const useAuth = () => {
         method: "POST",
         body: payload,
       });
-      localStorage.setItem("auth_token", res.token);
+      sessionStorage.setItem("auth_token", `Bearer ${res.token}`);
       user.value = res.user;
       toast.add({
         color: "success",
@@ -69,7 +75,12 @@ export const useAuth = () => {
   };
 
   const signout = async () => {
-    await $fetch("/api/auth/signout", { method: "POST" });
+    await $fetch("/api/auth/signout", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("auth_token")}`,
+      },
+    });
     user.value = null;
     await navigateTo("/auth/signin");
     toast.add({

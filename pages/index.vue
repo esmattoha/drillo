@@ -1,5 +1,7 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { WrapperDefault } from "#components";
+</script>
 
 <template>
-  <div>Dashboard</div>
+  <WrapperDefault></WrapperDefault>
 </template>

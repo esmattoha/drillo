@@ -4,10 +4,18 @@ export default defineEventHandler(async (event) => {
   const url = getRequestURL(event);
 
   // ✅ Bypass middleware for public API routes
-  const publicPaths = ["/api/auth/signin", "/api/auth/signup", "/api/public"];
+  const publicPaths = [
+    "/api/auth/signin",
+    "/api/auth/signup",
+    "/api/public",
+    "/auth/signin",
+    "/auth/signup",
+  ];
   if (publicPaths.some((path) => url.pathname.startsWith(path))) return;
 
   const authHeader = getHeader(event, "authorization");
+
+  console.log(authHeader);
 
   if (!authHeader?.startsWith("Bearer ")) {
     throw createError({

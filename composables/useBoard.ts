@@ -11,6 +11,9 @@ export const useUseBoard = () => {
       const res = await $fetch("/api/boards", {
         method: "POST",
         body: payload,
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("auth_token")}`,
+        },
       });
       board.value = res;
       toast.add({
